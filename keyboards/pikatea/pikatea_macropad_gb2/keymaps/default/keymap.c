@@ -29,22 +29,34 @@ enum layer_number {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_all(
-        KC_1,   KC_2,   KC_MEDIA_PREV_TRACK,    KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_NEXT_TRACK,    KC_6
+        KC_MEDIA_NEXT_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_PREV_TRACK,    KC_MUTE,  MO(_LOWER),    KC_TRNS 
     ),
     [_LOWER] = LAYOUT_all(
-        KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS
+        LSG(KC_L),   LSG(KC_BSLS),   LGUI(KC_5),    LGUI(KC_4),    KC_TRNS,    KC_TRNS
     )   
 };
 
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    // Volume control
-    if (!clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    switch(biton32(layer_state)){
+        case 1:
+            if (!clockwise) {
+                tap_code(KC_RGHT);
+            } else {
+                tap_code(KC_DOWN);
+            }
+            break;
+        default:
+            // Volume control
+            if (!clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
     }
+    return 1;
 }
 #endif
 
