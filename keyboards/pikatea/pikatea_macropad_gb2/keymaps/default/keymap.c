@@ -21,6 +21,14 @@ enum layer_number {
     _LOWER,
 };
 
+enum {
+    TD_LO = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_LO] = ACTION_TAP_DANCE_DOUBLE(KC_MUTE, LGUI(KC_L))
+};
+
 // Defines the keycodes used by our macros in process_record_user
 // enum custom_keycodes {
 //     QMKBEST = SAFE_RANGE,
@@ -29,7 +37,7 @@ enum layer_number {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_all(
-        KC_MEDIA_NEXT_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_PREV_TRACK,    KC_MUTE,  MO(_LOWER),    KC_TRNS 
+        KC_MEDIA_NEXT_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_PREV_TRACK,   TD(TD_LO),     MO(_LOWER),    RESET 
     ),
     [_LOWER] = LAYOUT_all(
         LSG(KC_L),   LSG(KC_BSLS),   LGUI(KC_5),    LGUI(KC_4),    KC_TRNS,    KC_TRNS
